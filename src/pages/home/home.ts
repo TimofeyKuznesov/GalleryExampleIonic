@@ -1,6 +1,6 @@
 
 import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
-import {HostListener, Directive} from '@angular/core';
+import {HostListener, Directive,ElementRef} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {Platform} from 'ionic-angular';
 
@@ -37,7 +37,46 @@ const cards = [
   templateUrl: 'home.html',
 
   animations: [
+  trigger('flyInOutR', [
+    state('center', style({
+    position: 'absolute',  top: 100,  right: 100,
+      transform: 'rotate(0deg)',
+      backgroundColor: 'green',
 
+    })),
+    state('left', style({
+      position: 'absolute',  top: 100,  right: 100,
+      transform: 'rotate(45deg)',
+      backgroundColor: 'green',
+    })),
+    state('right', style({
+    position: 'absolute', top: 100,  right: 100,
+      transform: 'rotate(-45deg)',
+      backgroundColor: 'green',
+    })),
+    transition('center =>left', animate('500ms ease-in')),
+    transition('center => right', animate('500ms ease-in'))
+  ]),
+  trigger('flyInOutR2', [
+    state('center', style({
+    position: 'absolute',  top: 200,  right: 100,
+      transform: 'rotate(0deg)',
+      backgroundColor: 'green',
+
+    })),
+    state('left', style({
+      position: 'absolute',  top: 200,  right: 100,
+      transform: 'rotate(45deg)',
+      backgroundColor: 'green',
+    })),
+    state('right', style({
+    position: 'absolute', top: 200,  right: 100,
+      transform: 'rotate(-45deg)',
+      backgroundColor: 'green',
+    })),
+    transition('center =>left', animate('500ms ease-in')),
+    transition('center => right', animate('500ms ease-in'))
+  ]),
     trigger('flyInOut', [
       state('center', style({
       position: 'absolute',  top: 0,  right: 0,   left: 0,
@@ -46,26 +85,26 @@ const cards = [
       })),
       state('left', style({
         position: 'absolute',  top: 0,  right: 0,   left: 0,
-        transform: 'translate3d(-150%, 0, 0) rotate(-90deg)',
+        transform: 'translate3d(-150%, 0, 0) rotate(-45deg)',
       })),
       state('right', style({
       position: 'absolute',  top: 0,  right: 0,   left: 0,
-        transform: 'translate3d(150%, 0, 0)  rotate(90deg)',
+        transform: 'translate3d(150%, 0, 0)  rotate(45deg)',
       })),
       transition('center =>left', animate('500ms ease-in')),
       transition('center => right', animate('500ms ease-in'))
     ]),
     trigger('flyDown', [
         state('center', style({
-        position: 'absolute',  top: 0,  right: 0,   left: 0,
+        //position: 'absolute',  top: 0,  right: 0,   left: 0,
             opacity: 0
         })),
         state('left', style({
-        position: 'absolute',  top: 0,  right: 0,   left: 0,
+        //position: 'absolute',  top: 0,  right: 0,   left: 0,
             opacity: 1
         })),
         state('right', style({
-        position: 'absolute',  top: 0,  right: 0,   left: 0,
+        //position: 'absolute',  top: 0,  right: 0,   left: 0,
             opacity: 1
         })),
         transition('center =>left', animate('500ms ease-in')),
@@ -77,7 +116,7 @@ const cards = [
 
 export class HomePage {
 
-
+  clientHeight=900;
   flyInOutState: String = 'center';
   swipeBlock: Boolean = false;
   index = 0;
@@ -85,8 +124,11 @@ export class HomePage {
   downImage=cards[1];
 
 
-  constructor(public navCtrl: NavController , public plt: Platform) {
+  constructor(public navCtrl: NavController , public plt: Platform, private el:ElementRef) {
     this.plt = plt;
+    this.el = el;
+    this.clientHeight = this.el.nativeElement.clientHeight-50
+    console.log(this.el)
   }
 
 //  @HostListener('touchstart', ['$event'])
@@ -100,6 +142,11 @@ export class HomePage {
 //        this.touchcancelListenFunc = this.renderer.listen(event.target, 'touchcancel', (e) => { this.removePreviousTouchListeners(); this.onEnd(e); });
 //      }
 //  }
+
+onResize(ev){
+    this.clientHeight = (this.el.nativeElement.clientHeight < this.el.nativeElement.clientWidth)?this.el.nativeElement.clientHeight-50 : this.el.nativeElement.clientWidth-50
+}
+
 animationStarted(ev) {
     console.log("animationStarted");
     //this.swipeBlock=true;
@@ -111,6 +158,7 @@ animationDone(ev) {
     }
     this.swipeBlock=false;
     this.flyInOutState = 'center';
+    this.clientHeight = (this.el.nativeElement.clientHeight < this.el.nativeElement.clientWidth)?this.el.nativeElement.clientHeight-50 : this.el.nativeElement.clientWidth-50
 }
 
 swipeEvent(e) {
@@ -141,6 +189,7 @@ swipeEvent(e) {
   toggleFlyInOut(ev){
     if(this.swipeBlock)
         return;
+    console.log(ev)
     this.swipeBlock=true;
 
     if((this.plt.width()/2)>ev.layerX)

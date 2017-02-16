@@ -1,25 +1,32 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-content padding>
 
-        <div (swipe)='swipeEvent($event)' >
-            <div   [@flyDown]="flyInOutState"
+<ion-grid>
+  <ion-row style="position: relative"
+         (click)="toggleFlyInOut($event)"
+         (swipe)='swipeEvent($event)'
+         (window:resize)="onResize($event)"
+         >
 
-                >
-                <img [src]="downImage.image" draggable="false"/>
-            </div>
-            <div (click)="toggleFlyInOut($event)"
+            <ion-card  [@flyDown]="flyInOutState">
+                    <img [style.height.px]="clientHeight" class="img" [src]="downImage.image" draggable="false" />
+
+                    <i style="marginRight: 20">item.text</i>
+
+
+            </ion-card>
+
+
+            <ion-card
             [@flyInOut]="flyInOutState"
                 (@flyInOut.start)="animationStarted($event)"
                 (@flyInOut.done)="animationDone($event)"
                 >
-                <img [src]="upImage.image" draggable="false" />
-            </div>
-        </div>
-</ion-content>
+                    <img [style.height.px]="clientHeight" class="img" [src]="upImage.image" draggable="false" />
+
+                    <i style="marginRight: 20">item.text</i>
+
+                </ion-card>
+
+    </ion-row>
+
+</ion-grid>
