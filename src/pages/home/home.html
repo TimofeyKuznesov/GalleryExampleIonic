@@ -7,24 +7,28 @@
          (window:resize)="onResize($event)"
          >
 
-            <ion-card  [@flyDown]="flyInOutState">
+            <ion-card class="cStyle" [@flyDown]="flyInOutState">
+                <ion-row class="ciStyle">
                     <img [style.height.px]="clientHeight" class="img" [src]="downImage.image" draggable="false" />
-
-                    <i style="marginRight: 20">item.text</i>
-
+                    </ion-row>
+                    <ion-row class="ciStyle">
+                    <i style="marginRight: 20">{{downImage.text}}</i>
+                </ion-row>
 
             </ion-card>
 
 
-            <ion-card
+            <ion-card class="cStyle"
             [@flyInOut]="flyInOutState"
                 (@flyInOut.start)="animationStarted($event)"
                 (@flyInOut.done)="animationDone($event)"
                 >
+                <ion-row class="ciStyle">
                     <img [style.height.px]="clientHeight" class="img" [src]="upImage.image" draggable="false" />
-
-                    <i style="marginRight: 20">item.text</i>
-
+                    </ion-row>
+<ion-row class="ciStyle">
+                    <i style="marginRight: 20">{{upImage.text}}</i>
+                </ion-row>
                 </ion-card>
 
     </ion-row>
