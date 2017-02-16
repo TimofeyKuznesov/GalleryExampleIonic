@@ -1,34 +1,27 @@
-
-
 <ion-grid>
-  <div style="position: relative"
-         (click)="toggleFlyInOut($event)"
-         (swipe)='swipeEvent($event)'
-         (window:resize)="onResize($event)"
-         >
+  <div style="position: relative" (click)="toggleFlyInOut($event)" (swipe)='swipeEvent($event)' (window:resize)="onResize($event)">
 
-            <div class="cStyle" [@flyDown]="flyInOutState">
-                <div class="ciStyle">
-                    <img [style.height.px]="clientHeight" class="img" [src]="downImage.image" draggable="false" />
-                    </div>
-                    <div class="ciStyle" style="text-align: center;">{{downImage.text}}
-                </div>
-
-            </div>
-
-
-            <div class="cStyle"
-            [@flyInOut]="flyInOutState"
-                (@flyInOut.start)="animationStarted($event)"
-                (@flyInOut.done)="animationDone($event)"
-                >
-                <div class="ciStyle">
-                    <img [style.height.px]="clientHeight" class="img" [src]="upImage.image" draggable="false" />
-                    </div>
-<div class="ciStyle" style="text-align: center;">{{upImage.text}}
-                </div>
-                </div>
-
+    <div class="cStyle" [@flyDown]="flyInOutState">
+      <div class="ciStyle">
+        <div style="display:flex">
+          <img [style.height.px]="clientHeight" class="img" [src]="downImage.image" draggable="false" />
+        </div>
+        <div class="ciStyle" style="text-align: center;">{{downImage.text}}
+        </div>
+      </div>
     </div>
+
+
+    <div class="cStyle" [@flyInOut]="flyInOutState" (@flyInOut.start)="animationStarted($event)" (@flyInOut.done)="animationDone($event)">
+      <div class="ciStyle">
+        <div style="display:flex">
+          <img [style.height.px]="clientHeight" class="img" [src]="upImage.image" draggable="false" />
+        </div>
+      </div>
+      <div class="ciStyle" style="text-align: center;">{{upImage.text}}
+      </div>
+    </div>
+
+  </div>
 
 </ion-grid>
