@@ -127,7 +127,7 @@ export class HomePage {
   constructor(public navCtrl: NavController , public plt: Platform, private el:ElementRef) {
     this.plt = plt;
     this.el = el;
-    this.clientHeight = this.el.nativeElement.clientHeight-50
+    this.clientHeight = (window.screen.height < window.screen.width)?window.screen.height-100 : window.screen.width-100
     console.log(this.el)
   }
 
@@ -144,7 +144,7 @@ export class HomePage {
 //  }
 
 onResize(ev){
-    this.clientHeight = (this.el.nativeElement.clientHeight < this.el.nativeElement.clientWidth)?this.el.nativeElement.clientHeight-50 : this.el.nativeElement.clientWidth-50
+    this.clientHeight = (window.screen.height < window.screen.width)?window.screen.height-100 : window.screen.width-100
 }
 
 animationStarted(ev) {
@@ -158,7 +158,7 @@ animationDone(ev) {
     }
     this.swipeBlock=false;
     this.flyInOutState = 'center';
-    this.clientHeight = (this.el.nativeElement.clientHeight < this.el.nativeElement.clientWidth)?this.el.nativeElement.clientHeight-50 : this.el.nativeElement.clientWidth-50
+    //this.clientHeight = (window.screen.height < window.screen.width) ? window.screen.height-100 : window.screen.width-100
 }
 
 swipeEvent(e) {

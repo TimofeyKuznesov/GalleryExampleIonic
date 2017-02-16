@@ -37,7 +37,7 @@ page-home {
 
       img {
           flex:1;
-          object-fit: scale-down;
+          object-fit: cover;
           //height: calc(100% - 80px);
           width: auto;
           max-width: 100%;
