@@ -1,36 +1,34 @@
 
 
 <ion-grid>
-  <ion-row style="position: relative"
+  <div style="position: relative"
          (click)="toggleFlyInOut($event)"
          (swipe)='swipeEvent($event)'
          (window:resize)="onResize($event)"
          >
 
-            <ion-card class="cStyle" [@flyDown]="flyInOutState">
-                <ion-row class="ciStyle">
+            <div class="cStyle" [@flyDown]="flyInOutState">
+                <div class="ciStyle">
                     <img [style.height.px]="clientHeight" class="img" [src]="downImage.image" draggable="false" />
-                    </ion-row>
-                    <ion-row class="ciStyle">
-                    <i style="marginRight: 20">{{downImage.text}}</i>
-                </ion-row>
+                    </div>
+                    <div class="ciStyle" style="text-align: center;">{{downImage.text}}
+                </div>
 
-            </ion-card>
+            </div>
 
 
-            <ion-card class="cStyle"
+            <div class="cStyle"
             [@flyInOut]="flyInOutState"
                 (@flyInOut.start)="animationStarted($event)"
                 (@flyInOut.done)="animationDone($event)"
                 >
-                <ion-row class="ciStyle">
+                <div class="ciStyle">
                     <img [style.height.px]="clientHeight" class="img" [src]="upImage.image" draggable="false" />
-                    </ion-row>
-<ion-row class="ciStyle">
-                    <i style="marginRight: 20">{{upImage.text}}</i>
-                </ion-row>
-                </ion-card>
+                    </div>
+<div class="ciStyle" style="text-align: center;">{{upImage.text}}
+                </div>
+                </div>
 
-    </ion-row>
+    </div>
 
 </ion-grid>
